@@ -1,31 +1,36 @@
 {
   "manifest_version": 3,
   "name": "YouTube Ad Block By Rizko",
-  "version": "1.31",
-  "description": "Blokir iklan di YouTube",
-  "permissions": [
-    "declarativeNetRequest",
-    "declarativeNetRequestWithHostAccess"
-  ],
-  "host_permissions": [
-    "*://*.youtube.com/*",
-    "*://*.googlevideo.com/*",
-    "*://*.doubleclick.net/*"
-  ],
-  "background": {
-    "service_worker": "background.js"
-  },
+  "version": "1.43",
+  "description": "Ekstensi Blokir Iklan di YouTube",
+  "permissions": ["declarativeNetRequest"],
+  "host_permissions": ["*://www.youtube.com/*"],
   "content_scripts": [
     {
-      "matches": ["*://*.youtube.com/*"],
+      "matches": ["*://www.youtube.com/*"],
       "js": ["content.js"]
     }
   ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
   "declarative_net_request": {
-    "rule_resources": [{
-      "id": "ruleset_1",
-      "enabled": true,
-      "path": "rules.json"
-    }]
+    "rule_resources": [
+      {
+        "id": "ruleset_1",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
   }
 }

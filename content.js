@@ -1,64 +1,33 @@
-// Fungsi untuk memblokir iklan
-function blockAds() {
-  const selectors = [
-    '.ad-showing', // Iklan video
-    '.video-ads', // Iklan video
-    '.ytp-ad-module', // Iklan video
-    '.ytp-ad-overlay-container', // Iklan overlay
-    '.ytp-ad-text-overlay', // Iklan teks overlay
-    '.ytp-ad-image', // Iklan gambar
-    '.ytp-ad-progress', // Progress bar iklan
-    '.ytp-ad-message-container', // Pesan iklan
-    '.ytp-ad-preview-container', // Preview iklan
-    '.ytp-ad-skip-button-container', // Container tombol skip
-    '#player-ads', // Container iklan di player
-    '.ytd-display-ad-renderer', // Iklan display
-    '.ytd-in-feed-ad-layout-renderer', // Iklan di feed
-  ];
-
-  selectors.forEach(selector => {
-    const ads = document.querySelectorAll(selector);
-    ads.forEach(ad => {
-      console.log("Menghapus elemen iklan:", ad); // Log elemen yang dihapus
-      ad.remove(); // Hapus elemen iklan
-    });
+const removeAds = () => {
+  // Menghapus elemen iklan overlay, banner, dan module iklan
+  const adModules = document.querySelectorAll(".ytp-ad-module, .ytp-ad-player-overlay, .ytp-ad-overlay-container, .ytp-ad-preview-container");
+  adModules.forEach(ad => {
+      ad.style.display = "none";
   });
 
-  // Skip iklan video setelah 5 detik
-  const skipButton = document.querySelector('.ytp-ad-skip-button, .ytp-ad-skip-button-modern');
+  // Menghapus iframe iklan dari sumber seperti doubleclick dan googlesyndication
+  const adFrames = document.querySelectorAll("iframe[src*='doubleclick.net'], iframe[src*='googlesyndication.com']");
+  adFrames.forEach(ad => {
+      ad.remove();
+  });
+
+  // Pastikan video utama tetap terlihat dan tidak hilang
+  const video = document.querySelector("video.html5-main-video");
+  if (video) {
+      video.style.visibility = "visible";
+      video.style.opacity = "1";
+  }
+
+  // Otomatis klik tombol skip iklan jika ada
+  const skipButton = document.querySelector(".ytp-ad-skip-button");
   if (skipButton) {
-    skipButton.click();
+      skipButton.click();
   }
+};
 
-  // Hentikan video iklan jika masih diputar
-  const videoPlayer = document.querySelector('video');
-  if (videoPlayer && videoPlayer.classList.contains('ad-showing')) {
-    videoPlayer.currentTime = videoPlayer.duration; // Langsung skip ke akhir iklan
-  }
-}
-
-// Fungsi untuk memastikan video utama tetap diputar
-function ensureMainVideoPlays() {
-  const videoPlayer = document.querySelector('video');
-  if (videoPlayer && !videoPlayer.classList.contains('ad-showing')) {
-    if (videoPlayer.paused) {
-      videoPlayer.play(); // Pastikan video utama diputar
-    }
-  }
-}
-
-// Gunakan MutationObserver untuk memantau perubahan DOM
-const observer = new MutationObserver((mutations) => {
-  mutations.forEach((mutation) => {
-    if (mutation.type === 'childList') {
-      blockAds(); // Panggil fungsi blockAds saat ada perubahan DOM
-      ensureMainVideoPlays(); // Pastikan video utama tetap diputar
-    }
-  });
-});
-
-// Mulai mengamati perubahan di seluruh dokumen
+// Menggunakan MutationObserver untuk memantau perubahan di halaman YouTube
+const observer = new MutationObserver(removeAds);
 observer.observe(document.body, { childList: true, subtree: true });
 
-// Jalankan blockAds secara berkala untuk memastikan tidak ada iklan yang terlewat
-setInterval(blockAds, 1000);
+// Jalankan fungsi removeAds setiap 1 detik untuk memeriksa iklan baru
+setInterval(removeAds, 1000);

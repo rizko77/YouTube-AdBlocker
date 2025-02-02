@@ -1,0 +1,27 @@
+body {
+    font-family: Arial, sans-serif;
+    width: 250px;
+    text-align: center;
+    background: #181818;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.popup-container {
+    padding: 10px;
+}
+
+button {
+    background: #ff0000;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #cc0000;
+}
