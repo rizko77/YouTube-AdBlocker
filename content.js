@@ -6,7 +6,7 @@ const removeAds = () => {
   });
 
   // Menghapus iframe yang berasal dari server iklan
-  const adFrames = document.querySelectorAll("iframe[src*='doubleclick.net'], iframe[src*='googlesyndication.com'], iframe[src*='youtube.com/ads'], iframe[src*='ytimg.com/vi/']");
+  const adFrames = document.querySelectorAll("iframe[src*='doubleclick.net'], iframe[src*='googlesyndication.com'], iframe[src*='youtube.com/ads'], iframe[src*='ytimg.com/vi/'], iframe[src*='youtube.com/embed/']");
   adFrames.forEach(ad => {
       ad.remove();
   });
