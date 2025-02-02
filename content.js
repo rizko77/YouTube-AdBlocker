@@ -1,12 +1,12 @@
 const removeAds = () => {
   // Menghapus elemen iklan overlay dan modul iklan
-  const adModules = document.querySelectorAll(".ytp-ad-module, .ytp-ad-player-overlay, .ytp-ad-overlay-container, .ytp-ad-preview-container");
+  const adModules = document.querySelectorAll(".ytp-ad-module, .ytp-ad-player-overlay, .ytp-ad-overlay-container, .ytp-ad-preview-container, .ytp-ad-skip-button, .ytp-ad-image-overlay");
   adModules.forEach(ad => {
       ad.style.display = "none";
   });
 
   // Menghapus iframe yang berasal dari server iklan
-  const adFrames = document.querySelectorAll("iframe[src*='doubleclick.net'], iframe[src*='googlesyndication.com'], iframe[src*='youtube.com/ads'], iframe[src*='ytimg.com/vi/'], iframe[src*='youtube.com/embed/']");
+  const adFrames = document.querySelectorAll("iframe[src*='doubleclick.net'], iframe[src*='googlesyndication.com'], iframe[src*='youtube.com/ads/'], iframe[src*='ytimg.com/vi/'], iframe[src*='youtube.com/embed/']");
   adFrames.forEach(ad => {
       ad.remove();
   });
