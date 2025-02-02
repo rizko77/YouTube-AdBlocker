@@ -6,13 +6,13 @@ const removeAds = () => {
   });
 
   // Menghapus iframe yang berasal dari server iklan
-  const adFrames = document.querySelectorAll("iframe[src*='doubleclick.net'], iframe[src*='googlesyndication.com']");
+  const adFrames = document.querySelectorAll("iframe[src*='doubleclick.net'], iframe[src*='googlesyndication.com'], iframe[src*='youtube.com/ads'], iframe[src*='ytimg.com/vi/']");
   adFrames.forEach(ad => {
       ad.remove();
   });
 
   // Menghapus elemen video iklan dari DOM
-  const adVideos = document.querySelectorAll("video[src*='ads.youtube.com']");
+  const adVideos = document.querySelectorAll("video[src*='ads.youtube.com'], video[src*='googlevideo.com/videoplayback?ad_interstitial=true']");
   adVideos.forEach(ad => {
       ad.remove();
   });
@@ -29,6 +29,13 @@ const removeAds = () => {
       video.style.visibility = "visible";
       video.style.opacity = "1";
   }
+
+  // Memastikan thumbnail tetap muncul dengan benar
+  const thumbnails = document.querySelectorAll("ytd-thumbnail img");
+  thumbnails.forEach((thumbnail) => {
+      thumbnail.style.visibility = "visible";
+      thumbnail.style.opacity = "1";
+  });
 };
 
 // Observasi perubahan di halaman YouTube untuk iklan baru yang dimuat
