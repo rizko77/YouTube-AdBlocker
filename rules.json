@@ -5,7 +5,7 @@
     "action": { "type": "block" },
     "condition": {
       "urlFilter": "doubleclick.net",
-      "resourceTypes": ["script", "xmlhttprequest", "sub_frame"]
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image"]
     }
   },
   {
@@ -14,7 +14,7 @@
     "action": { "type": "block" },
     "condition": {
       "urlFilter": "googlesyndication.com",
-      "resourceTypes": ["script", "xmlhttprequest", "sub_frame"]
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image"]
     }
   },
   {
@@ -41,7 +41,34 @@
     "action": { "type": "block" },
     "condition": {
       "urlFilter": "pagead2.googlesyndication.com",
-      "resourceTypes": ["script", "xmlhttprequest", "sub_frame"]
+      "resourceTypes": ["script", "xmlhttprequest", "sub_frame", "image"]
+    }
+  },
+  {
+    "id": 6,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "youtube.com/yts/jsbin",
+      "resourceTypes": ["script"]
+    }
+  },
+  {
+    "id": 7,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "youtube.com/api/stats/ads?advertiser=xxx",
+      "resourceTypes": ["xmlhttprequest"]
+    }
+  },
+  {
+    "id": 8,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "urlFilter": "googlevideo.com/videoplayback?ad_interstitial=true",
+      "resourceTypes": ["media"]
     }
   }
 ]
