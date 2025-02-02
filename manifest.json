@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "YouTube Ad Block By Rizko",
-  "version": "1.20",
+  "version": "1.31",
   "description": "Blokir iklan di YouTube",
   "permissions": [
     "declarativeNetRequest",

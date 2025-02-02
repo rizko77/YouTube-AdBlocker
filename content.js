@@ -11,11 +11,15 @@ function blockAds() {
     '.ytp-ad-message-container', // Pesan iklan
     '.ytp-ad-preview-container', // Preview iklan
     '.ytp-ad-skip-button-container', // Container tombol skip
+    '#player-ads', // Container iklan di player
+    '.ytd-display-ad-renderer', // Iklan display
+    '.ytd-in-feed-ad-layout-renderer', // Iklan di feed
   ];
 
   selectors.forEach(selector => {
     const ads = document.querySelectorAll(selector);
     ads.forEach(ad => {
+      console.log("Menghapus elemen iklan:", ad); // Log elemen yang dihapus
       ad.remove(); // Hapus elemen iklan
     });
   });
@@ -33,5 +37,28 @@ function blockAds() {
   }
 }
 
-// Jalankan fungsi blockAds setiap 500ms
-setInterval(blockAds, 500);
+// Fungsi untuk memastikan video utama tetap diputar
+function ensureMainVideoPlays() {
+  const videoPlayer = document.querySelector('video');
+  if (videoPlayer && !videoPlayer.classList.contains('ad-showing')) {
+    if (videoPlayer.paused) {
+      videoPlayer.play(); // Pastikan video utama diputar
+    }
+  }
+}
+
+// Gunakan MutationObserver untuk memantau perubahan DOM
+const observer = new MutationObserver((mutations) => {
+  mutations.forEach((mutation) => {
+    if (mutation.type === 'childList') {
+      blockAds(); // Panggil fungsi blockAds saat ada perubahan DOM
+      ensureMainVideoPlays(); // Pastikan video utama tetap diputar
+    }
+  });
+});
+
+// Mulai mengamati perubahan di seluruh dokumen
+observer.observe(document.body, { childList: true, subtree: true });
+
+// Jalankan blockAds secara berkala untuk memastikan tidak ada iklan yang terlewat
+setInterval(blockAds, 1000);
